@@ -2,12 +2,13 @@ package dao;
 
 import model.Item;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 public interface ItemDAO {
-    void addItem(Item item);
-    void updateItem(Item item);
-    Item getItemById(Long id);
-    Collection<Item> getAllItems();
-    void deleteItem(Item item);
+    public void addItem(Item item) throws SQLException, Exception;
+    public void updateItem(Item item) throws SQLException, Exception;
+    public Item getItemById(Long id) throws SQLException, Exception;
+    public Collection<Item> getAllItems() throws SQLException, Exception;
+    public void deleteItem(Item item) throws SQLException, Exception;
 }

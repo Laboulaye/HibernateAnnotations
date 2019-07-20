@@ -5,21 +5,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="warehouse")
+@Table(name = "warehouses")
 public class Warehouse {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-
     @Column(name = "address")
     private String address;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "warehouse")
     private Set<Item> items = new HashSet<Item>();
 
-    public Warehouse() {}
+    public Warehouse() {
+    }
 
     public Long getId() {
         return id;

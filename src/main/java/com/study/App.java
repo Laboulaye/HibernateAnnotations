@@ -16,29 +16,29 @@ public class App {
         try {
             Collection<Warehouse> warehouses = Factory.getInstance().getWarehouseDAO().getAllWarehouses();
             Iterator<Warehouse> warehouseIterator = warehouses.iterator();
-            System.out.println("List of warehouses: ");
-            while (warehouseIterator.hasNext()){
+            System.out.println("list of warehouses:");
+            while (warehouseIterator.hasNext()) {
                 Warehouse warehouse = warehouseIterator.next();
                 System.out.println("warehouse number " + warehouse.getId() + ", address is " + warehouse.getAddress());
                 Collection<Item> items = warehouse.getItems();
                 Iterator<Item> itemIterator = items.iterator();
                 while (itemIterator.hasNext()) {
                     Item item = itemIterator.next();
-                    System.out.println(" has " + item.getName() + ", id of this item is " + item.getId());
+                    System.out.println("    has " + item.getName() + ", id of this item is " + item.getId());
                     Set<Provider> providers = item.getProviders();
                     Iterator<Provider> providerIterator = providers.iterator();
-                    while (providerIterator.hasNext()){
+                    while (providerIterator.hasNext()) {
                         Provider provider = providerIterator.next();
-                        System.out.println(" which is provided by " + provider.getName() + ", id of this provider is " + provider.getId());
+                        System.out.println("         which is provided by " + provider.getName() + ", id of this provider is " + provider.getId());
                     }
                 }
                 System.out.println();
             }
-        }
-        catch (Exception e ){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             if (session != null && session.isOpen()) {
                 session.close();
             }

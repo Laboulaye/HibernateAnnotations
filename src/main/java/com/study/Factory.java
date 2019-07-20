@@ -8,34 +8,33 @@ import daoImpl.ProviderDAOImpl;
 import daoImpl.WarehouseDAOImpl;
 
 public class Factory {
+    private static Factory instance = null;
+    private static ItemDAO itemDAO = null;
+    private static ProviderDAO providerDAO = null;
+    private static WarehouseDAO warehouseDAO = null;
 
-    private static Factory instance;
-    private static ItemDAO itemDAO;
-    private static ProviderDAO providerDAO;
-    private static WarehouseDAO warehouseDAO;
-
-    public static synchronized Factory getInstance(){
+    public static synchronized Factory getInstance() {
         if (instance == null) {
             instance = new Factory();
         }
         return instance;
     }
 
-    public static ItemDAO getItemDAO() {
+    public ItemDAO getItemDAO() {
         if (itemDAO == null) {
             itemDAO = new ItemDAOImpl();
         }
         return itemDAO;
     }
 
-    public static ProviderDAO getProviderDAO() {
+    public ProviderDAO getProviderDAO() {
         if (providerDAO == null) {
             providerDAO = new ProviderDAOImpl();
         }
         return providerDAO;
     }
 
-    public static WarehouseDAO getWarehouseDAO() {
+    public WarehouseDAO getWarehouseDAO() {
         if (warehouseDAO == null) {
             warehouseDAO = new WarehouseDAOImpl();
         }

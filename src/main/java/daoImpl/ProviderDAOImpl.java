@@ -5,6 +5,7 @@ import model.Provider;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,40 +13,36 @@ import java.util.List;
 public class ProviderDAOImpl implements ProviderDAO {
     private Session session;
 
-
     public ProviderDAOImpl() {
         session = HibernateUtil.getSessionFactory().openSession();
     }
 
-    @Override
-    public void addProvider(Provider provider) {
+    public void addProvider(Provider provider) throws SQLException, Exception {
         session.beginTransaction();
         session.save(provider);
         session.getTransaction().commit();
     }
 
-    @Override
-    public void updateProvider(Provider provider) {
+    public void updateProvider(Provider provider) throws SQLException, Exception {
         session.beginTransaction();
         session.update(provider);
         session.getTransaction().commit();
     }
 
-    @Override
-    public Provider getProviderById(Long id) {
-        Provider provider = session.load(Provider.class, id);
+    public Provider getProviderById(Long id) throws SQLException, Exception {
+        Provider provider = null;
+        provider = (Provider) session.load(Provider.class, id);
         return provider;
+
     }
 
-    @Override
-    public Collection<Provider> getAllProviders() {
-        List<Provider> providers = new ArrayList<>();
+    public Collection<Provider> getAllProviders() throws SQLException, Exception {
+        List<Provider> providers = new ArrayList<Provider>();
         providers = session.createCriteria(Provider.class).list();
         return providers;
     }
 
-    @Override
-    public void deleteProvider(Provider provider) {
+    public void deleteProvider(Provider provider) throws SQLException, Exception {
         session.beginTransaction();
         session.delete(provider);
         session.getTransaction().commit();

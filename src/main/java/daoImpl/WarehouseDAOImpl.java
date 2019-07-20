@@ -5,45 +5,43 @@ import model.Warehouse;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class WarehouseDAOImpl implements WarehouseDAO {
-
     private Session session;
 
     public WarehouseDAOImpl() {
         session = HibernateUtil.getSessionFactory().openSession();
     }
 
-    @Override
-    public void addWarehouse(Warehouse warehouse) {
+    public void addWarehouse(Warehouse warehouse) throws SQLException, Exception {
         session.beginTransaction();
         session.save(warehouse);
         session.getTransaction().commit();
     }
 
-    @Override
-    public void updateWarehouse(Warehouse warehouse) {
+    public void updateWarehouse(Warehouse warehouse) throws SQLException, Exception {
         session.beginTransaction();
         session.update(warehouse);
         session.getTransaction().commit();
     }
 
-    @Override
-    public Warehouse getWarehouseById(Long id) {
-        Warehouse warehouse = session.load(Warehouse.class, id);
+    public Warehouse getWarehouseById(Long id) throws SQLException, Exception {
+        Warehouse warehouse = null;
+        warehouse = (Warehouse) session.load(Warehouse.class, id);
         return warehouse;
     }
 
-    @Override
-    public Collection<Warehouse> getAllWarehouses() {
-        List<Warehouse> warehouses = session.createCriteria(Warehouse.class).list();
+    public Collection<Warehouse> getAllWarehouses() throws SQLException, Exception {
+        List<Warehouse> warehouses = new ArrayList<Warehouse>();
+        warehouses = session.createCriteria(Warehouse.class).list();
         return warehouses;
     }
 
-    @Override
-    public void deleteWarehouse(Warehouse warehouse) {
+    public void deleteWarehouse(Warehouse warehouse) throws SQLException, Exception {
         session.beginTransaction();
         session.delete(warehouse);
         session.getTransaction().commit();

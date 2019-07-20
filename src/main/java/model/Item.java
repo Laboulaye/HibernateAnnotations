@@ -7,7 +7,6 @@ import java.util.Set;
 @Entity
 @Table(name = "items")
 public class Item {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -18,15 +17,16 @@ public class Item {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "items_providers",
-                joinColumns = {@JoinColumn(name = "item_id")},
-                inverseJoinColumns = {@JoinColumn(name = "provider_id")})
-    private Set<Provider> providers = new HashSet<>();
+            joinColumns={@JoinColumn(name = "item_id")},
+            inverseJoinColumns={@JoinColumn(name = "provider_id")})
+    private Set<Provider> providers = new HashSet<Provider>();
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    public Item() {}
+    public Item() {
+    }
 
     public Long getId() {
         return id;
